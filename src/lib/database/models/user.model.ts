@@ -34,6 +34,13 @@ const UserSchema = new Schema({
     type: Number,
     default: 10,
   },
+  // ⭐ NEW: Link all projects created by this user
+  projects: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Project",
+    },
+  ],
 });
 
 const User = models?.User || model("User", UserSchema);

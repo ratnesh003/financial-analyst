@@ -91,3 +91,22 @@ export async function updateCredits(userId: string, creditFee: number) {
         handleError(error);
     }
 }
+
+// ADD PROJECT
+export async function addProjectToUser(userId: string, projectId: string) {
+    try {
+        await connectToDatabase();
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $push: { projects: projectId } },
+            { new: true }
+        );
+
+        if (!updatedUser) throw new Error("Failed to assign project to user");
+
+        return JSON.parse(JSON.stringify(updatedUser));
+    } catch (error) {
+        handleError(error);
+    }
+}
