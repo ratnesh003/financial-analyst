@@ -109,6 +109,7 @@ const AddProject = () => {
               <Textarea
                 id="project-description"
                 placeholder="Project description (optional)"
+                className="max-h-[200px] overflow-auto"
                 {...form.register("description")}
               />
             </div>

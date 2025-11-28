@@ -6,8 +6,6 @@ import File from "../database/models/file.model";
 import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
-import { redirect } from "next/dist/server/api-utils";
-import { NextResponse } from "next/server";
 
 // CREATE
 export async function createProject(params: CreateProjectParams) {

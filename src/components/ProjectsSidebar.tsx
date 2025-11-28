@@ -36,7 +36,7 @@ export function ProjectSidebar({
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                    <AddProject />
+                <AddProject />
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

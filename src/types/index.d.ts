@@ -36,5 +36,5 @@ declare type CreateFileParam = {
   projectId: string;
   userId: string;
   name: string; 
-  cloudinaryUrl: string;
+  cloudinaryUrls: [string];
 }

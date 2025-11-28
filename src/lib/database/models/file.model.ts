@@ -20,30 +20,12 @@ const FileSchema = new Schema(
     },
 
     // ⭐ Cloudinary secure URL to the uploaded CSV
-    cloudinaryUrl: {
-      type: String,
+    cloudinaryUrls: {
+      type: [String],
       required: true,
+      default: []
     },
 
-    // Original file size, rows, etc.
-    // size: Number,
-    // rowCount: Number,
-
-    // // ⭐ Auto-inferred table schema (LLM + pandas profiling)
-    // schema: [
-    //   {
-    //     columnName: String,
-    //     inferredType: String,
-    //     exampleValue: String,
-    //     nullable: Boolean,
-    //     distinctValues: Number,
-    //   },
-    // ],
-
-    // // LLM notes or contextual metadata
-    // insights: {
-    //   type: String,
-    // },
   },
   { timestamps: true }
 );

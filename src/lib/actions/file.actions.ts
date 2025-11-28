@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import File from "../database/models/file.model";
 import Project from "../database/models/project.model";
 import { connectToDatabase } from "../database/mongoose";
@@ -7,7 +8,7 @@ import { handleError } from "../utils";
 
 // CREATE FILE
 export async function createFile(params: CreateFileParam) {
-    const { projectId, userId, name, cloudinaryUrl } = params;
+    const { projectId, userId, name, cloudinaryUrls } = params;
 
     try {
         await connectToDatabase();
@@ -17,7 +18,7 @@ export async function createFile(params: CreateFileParam) {
             project: projectId,
             user: userId,
             name,
-            cloudinaryUrls: [cloudinaryUrl], // first version
+            cloudinaryUrls, // first version always pass with atleast one string
         });
 
         // 2. Link file to project
@@ -25,6 +26,8 @@ export async function createFile(params: CreateFileParam) {
             projectId,
             { $push: { files: newFile._id } }
         );
+
+        revalidatePath(`/projects/${projectId}`);
 
         return JSON.parse(JSON.stringify(newFile));
     } catch (error) {
@@ -45,6 +48,13 @@ export async function getFileById(fileId: string) {
     } catch (error) {
         handleError(error);
     }
+}
+
+// GET FILE BY PROJECT
+export async function getFilesByProject(projectId: string) {
+  await connectToDatabase();
+  const files = await File.find({ project: projectId }).lean();
+  return JSON.parse(JSON.stringify(files));
 }
 
 // DELETE FILE BY ID
